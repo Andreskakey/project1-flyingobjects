@@ -59,6 +59,8 @@
          <p>As you're working on this, be thinking about what sort of game you want to implement. What sorts of objects will you need? What shapes might they have? (You don't need to spend a lot of time on creating beautiful shapes, but obviously different types of things should look different!)</p>
          
          <p>Finally, create a <code>ControlledObject</code> <strong>Decorator</strong>. This will correspond to the object in your game controlled by the user (specifically the user's keyboard). Think about what this object should do in response to user's control: should it move around 'space'? Should it rotate? Speed up? Slow down? Fire a bullet/laser/flower? Provide a method for each one of those behaviors, then use the <strong>Adapter</strong> pattern (as described in the book, pp 619-621; don't worry about using "anonymous inner classes") to "hook up" keyboard events to the <code>ControlledObject</code> methods. In particular, you will need to implement the <code>KeyListener</code> interface. Browse the Java API&mdash; which package is this in? What methods do you need to implement in order to correctly implement this interface? (Hint: be sure you understand the differences among the methods of that interface. You must provide implementations of all of them, but you can leave implementations empty if that particular event isn't relevant to you.) In my experience, it's easier to work with the alphanumeric keys than with the arrow keys.</p>
+         
+         <p>If your game needs them, create more <strong>Decorator</strong>s for other kinds of object behavior. (You are <em>required</em> to create the three <strong>Decorator</strong> classes listed above, even if you don't use all of them in your game.)
 
            
            <h2>Game Logic</h2>
@@ -78,9 +80,9 @@
         <p>You've now done everything you need to do to earn 100% on this project. Yes, there is lots more that could be done! For up to 10 points of extra credit (plus your personal satisfaction), you might want to:</p>
 
         <ul>
-           <li>Give the game ability to add new objects in the middle of the game, either to replace things that have been destroyed, or to make the game more difficult.
+           <li>Provide logic for adding new objects in the middle of the game, either to replace things that have been destroyed, or to make the game more difficult.
            
-           <li>Alter the logic of the "edges" of your game--you could have things 'wrap' so that if they fall off the bottom they reappear at the top, or they could bounce off the edges, or...
+           <li>Alter the logic of the "edges" of space&mdash;you could have things 'wrap' so that if they fall off the bottom they reappear at the top, or they could bounce off the edges, or...
            
             <li>Give your user multiple 'lives' and keep track of them.</li>
 
@@ -110,13 +112,15 @@
                   <p>Also, revise the README.md file. It should have three main sections. First, "Description and Instructions." Briefly describe the game and its objective(s), and tell me how to play it. Next, "Works Cited." I expect you will need to consult a variety of resources to complete this project. Any website, book, or similar resource from which you get useful guidance must be listed here, along with a brief description of what you got from it (a bit of code? an explanation? an answer to a question?). You do not need to list the Java API or either of the two books required/recommended for class. If you use no other resources, then your "Works Cited" section must simply contain the word <em>None</em>. Finally, "Code Summary." In this section, just list your <em>new</em> classes and methods and your <em>changed</em> classes and methods.  to include a brief summary of the methods and classes you changed. If you do any work for extra credit, then add a section on "Extra Credit" that briefly lists the extra credit features you successfully implemented.
                            </li>
 
-          <li><b>Design</b>. Are the relationships among your classes (and the way they interact with the Java library classes) logical, clear, and robust? Do they (for example) adhere to the IS-A and HAS-A rules? Do you use design patterns correctly and effectively? Is your code otherwise well-designed, e.g. avoiding duplicate code?</li>
+          <li><p><b>Design</b>. Are the relationships among your classes (and the way they interact with the Java library classes) logical, clear, and robust? Do they (for example) adhere to the IS-A and HAS-A rules? Do you use design patterns correctly and effectively? Is your code otherwise well-designed, e.g. avoiding duplicate code?</p></li>
 
 
-            <li><b>Style</b>. Your code should be properly formatted, with enough (but not too much) whitespace. Eclipse will do most of this for you; make sure you let it help you. Variable names, method names, etc, should all be "self-documenting" but not excessively long. <em>Generally</em>, you can use any style you like, as long as you're consistent. If you're not sure what style to use, follow the <a href="https://google-styleguide.googlecode.com/svn/trunk/javaguide.html">Google Style Guide</a>, except where Eclipse's automatic formatting contradicts these guidelines.</li>
+            <li><p><b>Style</b>. Your code should be properly formatted, with enough (but not too much) whitespace. Eclipse will do most of this for you; make sure you let it help you. Variable names, method names, etc, should all be "self-documenting" but not excessively long. <em>Generally</em>, you can use any style you like, as long as you're consistent. If you're not sure what style to use, follow the <a href="https://google-styleguide.googlecode.com/svn/trunk/javaguide.html">Google Style Guide</a>, except where Eclipse's automatic formatting contradicts these guidelines.</p></li>
 
-            <li><b>Correctness and Efficiency</b> . Does your game "play properly?" Does it offer at least the minimum set of behaviors described above? Does it do so efficiently, without wasting computation?</li>
+            <li><p><b>Correctness and Efficiency</b> . Does your game "play properly?" Does it offer at least the minimum set of behaviors described above? Does it do so efficiently, without wasting computation?</p></li>
         </ol>
+        
+        <p>We will decide together, in class, how exactly to allocate the 100 points across these catgories.</p>
 
         <p>It's probably clear, but just to be explicit: on this project, you are to work strictly <em>on your own</em>. Specifically, you may neither show your code to, nor look at the code of, anyone else taking 3120 this semester. You may consult online/textbook resources (subject to the "Documentation" requirements above). You may certainly consult with me. You may, if you like, discuss your design at a high level with other students ("Oh, I found the <code>java.foo.bar</code> package to be really helpful," or, "Sure, I can explain the geometry of a paint window to you."). </p>
     </div>
