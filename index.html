@@ -28,7 +28,7 @@
 
         <p>When you first download the "skeleton" project, run the program. You should see a black 'field' with a white triangle-ish thing on it. Not very exciting. The black represents SPACE. Whether it's <em>outer space</em>, or a parking lot, or what a dog sees when it dreams, is up to you. The white triangle represents a "spaceship," or really any kind of flying object. (Maybe it's really a spaceship; maybe it's a shopping cart in a parking lot; maybe it's a cat being dreamed by a dog.)</p>
 
-        <p>Now look at the code. The "spaceship" is modeled by a <code>SpaceObject</code> object. It doesn't do much; it just sits there. (At this point, I strongly recommend you read the javadoc!)</p>
+        <p>Now look at the code. The "spaceship" is modeled by a <code>SimpleSpaceObject</code> object. It doesn't do much; it just sits there. (At this point, I strongly recommend you read the javadoc!)</p>
 
         <p>For now, imagine that essentially everything in your game is going to be a <code>SpaceObject</code> . Some <code>SpaceObjects</code> will be more interesting than others, though.</p>
 
@@ -36,7 +36,7 @@
 
         <p>Before we get too caught up in all those space objects, let's talk about the skeleton code. You don't have to understand it all now (though you will, by the end of the semester). The class that gives the basic game functionality is <code>Game</code>. This class gives you a <code>JPanel</code> that is repainted every 100th of a second, so it's a crude kind of animation (good enough for us). That is, the <code>paintComponent()</code> method WILL be called every 100th of a second, so if you want to create the appearance of motion, you need to move things between one invocation of <code>paintComponent()</code> and the next.</p>
         
-        <p>I've extended <code>Game</code> to implement a <code>Dummy</code> game: note that I provide a constructor <em>and</em> I override <code>paintComponent()</code>. The <code>paintComponent()</code> method asks the <code>ship</code> to <code>paint()</code> itself (because <code>SpaceObject</code> isn't a Swing component, I don't have to use a method called <code>paintComponent()</code>&mdash;really, I could call the method anything I like, but <code>paint()</code> is a very good choice).</p>
+        <p>I've extended <code>Game</code> to implement a <code>SimpleGame</code>: note that I provide a constructor <em>and</em> I override <code>paintComponent()</code>. The <code>paintComponent()</code> method asks the <code>ship</code> to <code>paint()</code> itself (because <code>SpaceObject</code> isn't a Swing component, I don't have to use a method called <code>paintComponent()</code>&mdash;really, I could call the method anything I like, but <code>paint()</code> is a very good choice).</p>
         
         <p>How is the <code>ship</code> actually painted? Follow the code and look at the <code>Polygon</code> class. As the documentation says, you don't need to worry much about the mathematics inside the <code>Polygon</code> class, but you should certainly understand how to use the <code>public</code> methods.
           
@@ -50,29 +50,34 @@
 
        <p>In this project, you will use design patterns to create several different kinds of space objects. At minimum, you will create three additional classes: <code>FallingObject</code>, <code>SpinningObject</code>, and <code>ControlledObject</code>.</p>
        
-       <p>To start, modify <code>Dummy</code> so that the ship, instead of just sitting on one place, 'falls' down the screen and eventually disappears at the bottom. Obviously, the big question here is <em>how</em> to modify the existing code.</p>
+       <p>To start, modify <code>SimpleGame</code> so that the ship, instead of just sitting on one place, 'falls' down the screen and eventually disappears at the bottom. Obviously, the big question here is <em>how</em> to modify the existing code.</p>
        
-       <p>Once you've figured out how to do that, use the <strong>Decorator</strong> pattern to create a <code>FallingObject</code> class that "wraps" <code>SpaceObject</code>. (So the relationship between <code>FallingObject</code> and <code>SpaceObject</code> should be the same as the relationship between <code>BufferedReader</code> and <code>Reader</code>.)
+       <p>Once you've figured out how to do that, use the <strong>Decorator</strong> pattern to create a <code>FallingObject</code> class that "wraps" <code>SpaceObject</code>. (So the relationship between <code>FallingObject</code> and <code>SpaceObject</code> should be the same as the relationship between <code>BufferedReader</code> and <code>Reader</code>.) I've given you some infrastructure for this: note that you have an interface <code>SpaceObject</code> which is implemented by both <code>SimpleSpaceObject</code> and <code>SpaceObjectDecorator</code>. The <code>SpaceObjectDecorator</code> abstract class is the basis for any decorator we might want&mdash;look again at the wikipedia page on the <a href="http://en.wikipedia.org/wiki/Decorator_pattern">decorator pattern</a> to review the logic.
          
          <p>Similarly, create another <strong>Decorator</strong> called <code>SpinningObject</code>. This wrapper doesn't change an object's location but just makes it rotate in place. (Note that you can combine these decorators to create falling-and-spinning object, even though you didn't write a <code>FallingSpinningObject</code> class. This is one of the cool things about decorators.)</p>
          
          <p>As you're working on this, be thinking about what sort of game you want to implement. What sorts of objects will you need? What shapes might they have? (You don't need to spend a lot of time on creating beautiful shapes, but obviously different types of things should look different!)</p>
          
-         <p>Finally, create a <code>ControlledObject</code> <strong>Decorator</strong>. This will correspond to the object in your game controlled by the user (specifically the user's keyboard). Think about what this object should do in response to user's control: should it move around 'space'? Should it rotate? Speed up? Slow down? Fire a bullet/laser/flower? Provide a method for each one of those behaviors, then use the <strong>Adapter</strong> pattern (as described in the book, pp 619-621; don't worry about using "anonymous inner classes") to "hook up" keyboard events to the <code>ControlledObject</code> methods. In particular, you will need to implement the <code>KeyListener</code> interface. Browse the Java API&mdash; which package is this in? What methods do you need to implement in order to correctly implement this interface? (Hint: be sure you understand the differences among the methods of that interface. You must provide implementations of all of them, but you can leave implementations empty if that particular event isn't relevant to you.) In my experience, it's easier to work with the alphanumeric keys than with the arrow keys.</p>
+         <p>Finally, create a <code>ControlledObject</code> <strong>Decorator</strong>. This will correspond to the object in your game controlled by the user (specifically the user's keyboard). Think about what this object should do in response to user's control: should it move around 'space'? Should it rotate? Speed up? Slow down? Fire a bullet/laser/flower? Provide a method for each one of those behaviors, then use the <strong>Adapter</strong> pattern (as described in the book, pp 619-621; don't worry about using "anonymous inner classes") to "hook up" keyboard events to the <code>ControlledObject</code> methods. In particular, you will need to implement the <code>KeyListener</code> interface. Browse the Java API&mdash; which package is this in? What methods do you need to implement in order to correctly implement this interface? What object will be "generating" the events to listen for? What object should do the listening? (Hint: be sure you understand the differences among the methods of that interface. You must provide implementations of all of them, but you can leave implementations empty if that particular event isn't relevant to you.) In my experience, it's easier to work with the alphanumeric keys than with the arrow keys. </p>
          
          <p>If your game needs them, create more <strong>Decorator</strong>s for other kinds of object behavior. (You are <em>required</em> to create the three <strong>Decorator</strong> classes listed above, even if you don't use all of them in your game.)
-
+           
+           
            
            <h2>Game Logic</h2>
            
-           <p>Once your game-space is populated with objects, implement some game logic&mdash;that is, there should be a little bit more to your game than objects that fall, spin, and move around. Something should happen. Perhaps the most straightforward thing to deal with is the collision of two objects&mdash;this could mean that a ship collided with an asteroid, or that Pac-Man ate something, or a ball bounced off a tree. Consider using the <code>contains()</code> method as a collision detector. When is the <strong>Game Over</strong>?</p>
+           <p>Once your game-space is populated with objects, implement some game logic&mdash;that is, there should be a little bit more to your game than objects that fall, spin, and move around. Something should happen. Perhaps the most straightforward thing to deal with is the collision of two objects&mdash;this could mean that a ship collided with an asteroid, or that Pac-Man ate something, or a ball bounced off a tree. Consider using the <code>contains()</code> method as a collision detector. You may need to adjust the <code>SpaceObject.collide()</code> method.</p>
            
-           <p>You might also want to change the name of the <code>Dummy</code> class to reflect the name of your game...</p>
+           
+           
+           <p>When is the <strong>Game Over</strong>?</p>
+           
+           <p>You might also want to change the name of the <code>SimpleGame</code> class to reflect the name of your game...</p>
          
          
          <h2>Other Design Issues</h2>
        
-       As you're working, keep your eyes open for ways to improve the design of your code. (Don't worry about changing <code>Polygon</code> code&mdash;if you need to add or change its behavior, you probably don't need to change its code.) For example, in <code>Dummy</code>, the shape of the ship is provided by the <code>Dummy</code> class. Is that the best place for information about the <em>ship</em> to live?
+       As you're working, keep your eyes open for ways to improve the design of your code. (Don't worry about changing <code>Polygon</code> code&mdash;if you need to add or change its behavior, you probably don't need to change its code.) For example, in <code>SimpleGame</code>, the shape of the ship is provided by the <code>SimpleGame</code> class. Is that the best place for information about the <em>ship</em> to live?
        
        
         <h2>Doing More</h2>
